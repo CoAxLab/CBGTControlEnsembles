@@ -1,0 +1,62 @@
+(1). To calibrate the network, run CBGT-generate_CBGTControlCaseData.ipynb
+
+   By changing the values in "values" you can change specific weights being the order:
+	
+	[Cx_dMSN_NMDA_L, Cx_dMSN_NMDA_R, Cx_iMSN_NMDA_L, Cx_iMSN_NMDA_R, 
+	Cx_dMSN_AMPA_L, Cx_dMSN_AMPA_R, Cx_iMSN_AMPA_L, Cx_iMSN_AMPA_R,
+        dMSN_iMSN, D1STR_GPi, iMSN_dMSN, D2STR_GPeP, GPe_STN, GPe_GPi, STN_GPi, GPi_Th, 
+        Th_STRd, Th_STRi, CxTh, CxFSI, STN_GPeP_A, STN_GPeP_N, ThCx, GPeP_GPeP]
+
+   OUTPUT:
+   ---> Code in section "Phenotypes sims" saves a folder named "ControlCase" containing the results per each trail obtained when using the control weights. 
+   ---> This code generated, at the end, Fig 1 (central-left panel) and Fig 2.
+
+
+(2). To generate N different samples using LHS, run CBGT-generate_CBGTdata.ipynb
+
+   By changing the values in "xlimits = np.array([...])" at section "Latin Hipercub Sampling - uniformly distributed values", you can change the intervals where each weight can lie being the order as in "values".
+   By changing the value "N" in "section Latin Hipercub Sampling - uniformly distributed values", you can choose the number of simulations 
+
+   OUTPUT:
+   ---> Code in section "Phenotypes sims" saves a folder named "Uniform_Test"+string value containing the results per each trail. 
+   ---> Code at the end of the section titled as "Creat the CBGT output table of mean FR" creates a folder CBGTSolution containing the data we treat.
+
+
+(3). To estimate the DDM parameters, RUN CBGT-generate_HDDMdata.ipynb 
+	IMPORTANT: You need to run it using Python 2.
+
+   Code in section "Necessarily averages to normalize the HDDM data in the clustering study" generates 100000 simulations using the DDM model varying only a,t,v, or z. It has been used to normalize DDM parameters in the clustering study.
+
+   OUTPUT:
+   ---> This code creates two folders named "hddmControlCase" containing (a,v,z,t,RT,...) for the control case; and "hddmSolution" containing those parameter for all cases obtained from the LHS simulations.
+
+
+(4). To treat the data, run CBGT-treat_data.ipynb
+
+	(a) Run every until Section "A". You need to have the following folders created using the previous codes:
+		- hddmControlCase
+		- hddmSolution
+		- CBGTControlCase
+		- CBGTSolution
+
+	(b) To perform the CCA study, run the code in section "A. CCA"
+		Run code in (I)
+		Run code in (II) BUT only for the specific case you want to treat.
+			---> Code in "1. FR-HDDM case" returns Fig 5 and Fig S3.B
+			---> Code in "2. Weights - FR" returns Fig S3.A and  Fig S4.
+			---> Code in "3. Weights - DDM" (No figures included in the manuscript)
+		Run code (III), sections 1 and 2, to generate the figures in each case. Other figures are also plotted but not included in the manuscript. Section 3 (No figures included in the manuscript)
+
+	(c) To perform the Linear regression study, run code in section "B. Linear regression on Presynaptic weights to Postsynaptic FR"
+		---> It returns Fig 3 and Fig S1
+
+	(d) To plot DDM data, run code in section "C. HDDM results"
+		---> It returns Fig 4
+
+	(e) To perform the Clustering study, run code in section "CD. Clustering"
+		---> It returns Fig S2 and other figures  not included in the manuscript
+
+
+
+
+
